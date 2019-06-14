@@ -7,8 +7,8 @@
 VPCID_DEFAULT=$(aws ec2 describe-vpcs --query 'Vpcs[?InstanceTenancy==`default` && State==`available` && IsDefault==`true`].VpcId' --output text)
 
 #Second is Create the security group
-GROUPID=$(aws ec2 create-security-group --group-name HelloAWS --description "Say Hello AWS!" --vpc-id ${VPCID_DEFAULT})
-GROUPNAME=$(aws ec2 describe-security-groups --group-ids sg-09649623700c8b507 --query 'SecurityGroups[*].GroupName' --output text)
+GROUPID=$(aws ec2 create-security-group --group-name HelloAWS --description "Say Hello AWS!" --vpc-id ${VPCID_DEFAULT} --output text)
+GROUPNAME=$(aws ec2 describe-security-groups --group-ids ${GROUPID} --query 'SecurityGroups[*].GroupName' --output text)
 
 #Third is authorize to the group to listen by ports tcp/22 (ssh) and tcp/3000 for inbound traffic. By default, all instances of security groups allow all outbound traffic
 aws ec2 authorize-security-group-ingress --group-name ${GROUPNAME} --protocol tcp --port 22 --cidr 0.0.0.0/0
