@@ -7,7 +7,7 @@ GROUP_ID=$(aws ec2 describe-security-groups --query 'SecurityGroups[?contains(Gr
 IMAGE_ID=ami-6c9eb509
 
 #Run the instance
-aws ec2 run-instances --instance-type ${INSTANCE_TYPE} --key-name ${KEYNAME} --security-group-ids ${GROUP_ID} --image-id ${IMAGE_ID} # --dry-run -> OPTIONAL
+aws ec2 run-instances --instance-type ${INSTANCE_TYPE} --key-name ${KEYNAME} --security-group-ids ${GROUP_ID} --image-id ${IMAGE_ID} # --dry-run -> OPTIONAL// I dont run this command because I cant pay the bill, so It hasnt created a revert for the instance
 
 #Get the instance id
 INSTANCE_ID=$(aws ec2 describe-instances --filter "Name=group-id,Values=${GROUP_ID}" "Name=key-name,Values=${KEYNAME}" "Name=image-id,Values=${IMAGE_ID}" "Name=instance-type,Values=${INSTANCE_TYPE}" --query 'Instances[*].InstanceId')
